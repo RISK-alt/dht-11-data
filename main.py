@@ -25,6 +25,7 @@ dhtDevice = adafruit_dht.DHT11(board.D23, use_pulseio=False)
 #PIN F : 24
 #PIN G : 25
 #PIN P : point
+point = 5 
 
 Segment = {
   0: (1,0,1,1,0,1,1,1,1,1), #A 
@@ -34,6 +35,19 @@ Segment = {
   4: (1,0,1,0,0,0,1,0,1,0), #E
   5: (1,0,0,0,1,1,1,0,1,1), #F
   6: (0,0,1,1,1,1,1,0,1,1), #G
+}
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarings(False) 
+GPIO.setup(19, GPIO.OUT)
+GPIO.setup(20, GPIO.OUT)
+GPIO.setup(21, GPIO.OUT)
+GPIO.setup(22, GPIO.OUT)
+GPIO.setup(23, GPIO.OUT)
+GPIO.setup(24, GPIO.OUT)
+GPIO.setup(25, GPIO.OUT)
+GPIO.setup(26, GPIO.OUT)
+GPIO.setup(point, GPIO.OUT)
 
 while True:
     try:
