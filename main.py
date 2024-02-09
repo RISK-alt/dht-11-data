@@ -49,6 +49,8 @@ GPIO.setup(25, GPIO.OUT)
 GPIO.setup(26, GPIO.OUT)
 GPIO.setup(point, GPIO.OUT)
 
+
+--- GPIO maindef ---
 while True:
     try:
         # Imprimer les valeurs via l'interface série
