@@ -63,7 +63,7 @@ class EmailSenderClass:
 if __name__ == "__main__":
     email= EmailSenderClass()
     email.sendHtmlEmailTo("Admin","destinataire@email.com","Ceci est un mail automatique envoyé à partir d'un script Python.")
-
+# Si ma temperature es strictement supérieur a 23 degré alord envoyé un mail avec le function au dessus
 # EMAIL ------------------------------------------------
 
 #PIN_A = 19
