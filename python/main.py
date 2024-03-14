@@ -1,10 +1,10 @@
 import time
 import RPi.GPIO as GPIO
 import board
-import adafruit_dht
-from discord_webhook import DiscordWebhook
+import adafruit_dht 
 dhtDevice = adafruit_dht.DHT11(board.D23, use_pulseio=False)
 import mail
+import DiscordWebhook
 
 #PIN_A = 19
 #PIN_B = 20
@@ -85,7 +85,6 @@ while True:
         dhtDevice.exit()
         raise error
 
-    if (temp > 25): # Mail et wenbook
+    if (temp > 25): # Définition repsective des variable dans le mail.py et le discordwebhook.py 
         mail.sendHtmlEmailTo
-        webhook = DiscordWebhook(url="https://discord.com/api/webhooks/1217849259651764374/zgWPUopQVyY-GJ-JFIzd0LBPjoB6BmYEWnP48Hpe0DdF0viti2SHu2_OW6kwClZy7U-6", content="La temperature a depassé la norme !")
-        response = webhook.execute()
+        DiscordWebhook.alert
