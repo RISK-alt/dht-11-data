@@ -85,6 +85,6 @@ while True:
         dhtDevice.exit()
         raise error
 
-    if (temp > 25): # Définition repsective des variable dans le mail.py et le discordwebhook.py 
+    if (temp > 25 and humidity > 76): # Définition repsective des variable dans le mail.py et le discordwebhook.py 
         mail.sendHtmlEmailTo
         DiscordWebhook.alert
