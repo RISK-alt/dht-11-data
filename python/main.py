@@ -3,68 +3,7 @@ import RPi.GPIO as GPIO
 import board
 import adafruit_dht
 dhtDevice = adafruit_dht.DHT11(board.D23, use_pulseio=False)
-
-# EMAIL ------------------------------------------------ 
-
-def Sendemail():
-    EMAIL_HTML_TEMPLATE="""<html>
-                  <head>
-                  </head>
-                  <body>
-                    <p style ="margin: 5px 0;line-height: 25px;">ALERTE,<br>
-                    <br>
-                    Le capteur détecte une température trop élevé ! Prenez les dispositions qui conviendront.
-                    <br>
-                    {}
-                    <br>
-                    Ceci es un message automatique<br>
-                    {} <br>
-                    </p>
-                  </body>
-                </html>
-                """
-class EmailSenderClass:
-    def __init__(self):
-        """ """
-        self.logaddr = "<gmail address>"
-        self.fromaddr = "contact@domaine.com"# alias
-        self.password = "<gmail app password"#
-    def sendMessageViaServer(self,toaddr,msg):
-        # Send the message via local SMTP server.
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls()
-        server.login(self.logaddr, self.password)
-        text = msg.as_string()
-        server.sendmail(self.fromaddr, toaddr, text)
-        server.quit()
-            
-                
-    def sendHtmlEmailTo(self,destName,destinationAddress,msgBody):
-        #Message setup
-        msg = MIMEMultipart()
-         
-        msg['From'] =  "Me<"+self.fromaddr+">"
-        msg['To'] = destinationAddress
-        msg['Subject'] = "Hello mail"
-        
-        hostname=sys.platform
-        
-            
-        txt = EMAIL_HTML_TEMPLATE
-        
-        txt=txt.format(destName,msgBody,hostname)
-        
-        #Add text to message
-        msg.attach(MIMEText(txt, 'html'))
-        
-        print("Send email from {} to {}".format(self.fromaddr,destinationAddress))
-        self.sendMessageViaServer(destinationAddress,msg)
-        
-if __name__ == "__main__":
-    email= EmailSenderClass()
-    email.sendHtmlEmailTo("Admin","destinataire@email.com","Ceci est un mail automatique envoyé à partir d'un script Python.")
-# Si ma temperature es strictement supérieur a 23 degré alord envoyé un mail avec le function au dessus
-# EMAIL ------------------------------------------------
+import mail
 
 #PIN_A = 19
 #PIN_B = 20
@@ -109,7 +48,7 @@ def affichage(num1, num2):
         GPIO.output(comA1, HIGH)
         GPIO.output(comA2, LOW)
         time.sleep(0.01)
-while True:    
+while True:
     try:        
         temperature_c = dhtDevice.temperature
         temp = int(temperature_c)
@@ -120,7 +59,7 @@ while True:
         GPIO.output(PIN_P, GPIO.LOW)
         print("Temperature: ",temperature_c)
     except RuntimeError as error:
-        # Erreur parastie (passer a autre chose)
+        # Les erreurs sont assez fréquentes, les DHT sont difficiles à lire, passez à autre chose.
         print(error.args[0])
         time.sleep(2.0)
         continue
@@ -134,21 +73,16 @@ while True:
         hprm = lhum[0]
         hscd = lhum[1]
         affichage(int(hprm), int(hscd))
-        GPIO.output(PIN_P, GPIO.HIGH) # le point chiffre a virgule
+        GPIO.output(PIN_P, GPIO.HIGH)
         print("Humidite: ",humidity)
     except RuntimeError as error:
-        # Erreur / parasites passer a autre choses 
+        # Les erreurs sont assez fréquentes, les DHT sont difficiles à lire, passez à autre chose.
         print(error.args[0])
         time.sleep(2.0)
         continue
     except Exception as error:
         dhtDevice.exit()
         raise error
-    
 
-# bug a patch a regarder 
-    if temperature_c > 25:
-        Sendemail
-        else temperature_c < 25:
-    time.sleep(1)
-    continue 
+    if (temp > 25):
+        mail.sendHtmlEmailTo

@@ -48,7 +48,7 @@ class EmailSenderClass:
         msg['From'] =  "Me<"+self.fromaddr+">"
         msg['To'] = destinationAddress
         msg['Subject'] = "Hello mail"
-        
+    
         hostname=sys.platform
         
             
