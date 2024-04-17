@@ -1,7 +1,7 @@
 
 # riskdev.fr
 
-Hello everyone, I started this bot for secure your discord.
+Hello everyone, here's a python project to send information from a temperature sensor to a 7 seg display. It's also possible to send alerts through webhook on teams or discord.
 
 
 ## Acknowledgements
